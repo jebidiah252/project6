@@ -11,7 +11,7 @@ dataset.columns
 sns.scatterplot(data=dataset, x='Segment_id', y='Observed')
 plt.show()
 
-# %%
+# first day starts at December 3rd, 1945 or 1946
 sns.scatterplot(data=dataset, x='Date', y='Observed')
 plt.show()
 
