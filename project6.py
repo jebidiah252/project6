@@ -42,6 +42,21 @@ from sklearn.model_selection import train_test_split
 from statistics import mean 
 import itertools
 
+def test_combinations(month):
+    points = dataset[dataset['Month'] == month]
+    points = points.groupby('Segment_id', as_index=False).mean()
+    # train_set, test_set = train_test_split(points)
+    feature_cols = ['Evapotranspiration', 'Precipitation', 'Irrigation_pumping']
+    for i in range(1, len(feature_cols) + 1):
+        for subset in itertools.combinations(feature_cols, i):
+            subset = list(subset)
+            print(subset)
+            X = points[subset]
+            y = points['Observed']
+            lm = LinearRegression()
+            lm.fit(X, y)
+            print(lm.score(X, y))
+
 def test():
     # train_set, test_set = train_test_split(points)
     feature_cols = ['Evapotranspiration', 'Precipitation', 'Irrigation_pumping']
@@ -81,8 +96,8 @@ def plot_observed_vs_segment(month):
             # plt.show()
             test(points, column)
 
-# for i in range(1, 12 + 1):
-#     test(i)
+for i in range(1, 12 + 1):
+    test_combinations(i)
 
 test()
 
